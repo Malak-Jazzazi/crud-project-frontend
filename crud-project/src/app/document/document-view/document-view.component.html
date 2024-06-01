@@ -1,0 +1,30 @@
+<h3 class="mt-3 mb-3">View Supply Document Details</h3>
+
+<div>
+  <label><b>Supply Document Name :</b></label> {{supplyDocument.supplyDocumentName}}
+</div>
+<div>
+  <label><b>Supply Document Subject :</b></label> {{supplyDocument.supplyDocumentSubject}}
+</div>
+<div>
+  <label><b>Supply Document Status :</b></label> {{supplyDocument.status}}
+</div>
+
+<div>
+  <label><b>Supply Document Warehouse Name :</b></label> {{supplyDocument.warehouse?.name}}
+</div>
+<div>
+  <label><b>Supply Document Warehouse Description :</b></label> {{supplyDocument.warehouse?.description}}
+</div>
+
+<div>
+  <label><b>Supply Document Item Name :</b></label> {{supplyDocument.item?.name}}
+</div>
+<div>
+  <label><b>Supply Document Item Description :</b></label> {{supplyDocument.item?.description}}
+</div>
+<div>
+  <label><b>Supply Document Item Quantity :</b></label> {{supplyDocument.item?.quantity}}
+</div>
+
+<button class="btn btn-success mt-3 mb-3" type="button" (click)="goToWarehouseList()">Back</button>

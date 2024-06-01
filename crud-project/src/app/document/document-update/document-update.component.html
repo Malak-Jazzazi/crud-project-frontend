@@ -1,0 +1,50 @@
+<div class="col-md-6 offset-md-3 mt-3 mb-3">
+  <h3>Update Supply Document</h3>
+
+  <form (ngSubmit)="onSubmit()">
+    <div>
+      <label>Supply Document Name</label>
+      <input type="text" class="form-control" id="name" [(ngModel)]="document.supplyDocumentName" name="name">
+    </div>
+    <div>
+      <label>Supply Document Subject</label>
+      <input type="text" class="form-control" id="subject" [(ngModel)]="document.supplyDocumentSubject" name="subject">
+    </div>
+
+    <div>
+      <div>
+        <label>Supply Document Warehouse</label>
+      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Warehouse</mat-label>
+        <mat-select (selectionChange)="onWarehouseChange($event)"  [(ngModel)]="selectedWarehouseName" name="selectedWarehouseName">
+          <mat-option *ngFor="let warehouse of this.warehouses" [value]="warehouse.name">
+            {{warehouse.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <div>
+        <label>Supply Document Warehouse Item</label>
+      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Warehouse item</mat-label>
+        <mat-select (selectionChange)="onItemChange($event)"  [(ngModel)]="selectedItemName" name="selectedItemName">
+          <mat-option *ngFor="let item of this.selectedWarehouse?.items" [value]="item.name">
+            {{item.name}}
+          </mat-option>
+          <mat-option *ngIf="!selectedWarehouse?.items || selectedWarehouse?.items?.length === 0" disabled>
+            No items available
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="mt-3 mb-3" fxLayout="row" fxLayoutAlign="center center">
+      <button class="btn btn-success" type="submit" >Submit</button>
+      <button class="btn btn-success" type="button" style="margin-left: 10px" (click)="goToWarehouseList()">Back</button>
+    </div>
+  </form>
+</div>

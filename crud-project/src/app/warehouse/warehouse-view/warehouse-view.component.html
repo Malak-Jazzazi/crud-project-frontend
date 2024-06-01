@@ -1,0 +1,27 @@
+<h3 class="mt-3 mb-3">View Warehouse Details</h3>
+<div>
+  <div>
+    <label><b>Warehouse Name :</b></label> {{warehouse.name}}
+  </div>
+  <div>
+    <label><b>Warehouse Description :</b></label> {{warehouse.description}}
+  </div>
+
+  <div *ngIf="warehouse.items && warehouse.items.length > 0">
+    <h4 class="mt-3 mb-3">Items</h4>
+    <div *ngFor="let item of warehouse.items">
+      <div>
+        <label><b>Item Name :</b></label> {{item.name}}
+      </div>
+      <div>
+        <label><b>Item Description :</b></label> {{item.description}}
+      </div>
+      <div>
+        <label><b>Item Quantity :</b></label> {{item.quantity}}
+      </div>
+      <hr>
+    </div>
+  </div>
+
+  <button class="btn btn-success mt-3 mb-3" type="button" (click)="goToWarehouseList()">Back</button>
+</div>

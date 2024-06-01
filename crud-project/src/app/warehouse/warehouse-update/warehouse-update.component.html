@@ -1,0 +1,57 @@
+<div class="col-md-6 offset-md-3 mt-3 mb-3">
+  <h3>Update Warehouse</h3>
+
+  <form (ngSubmit)="onSubmit(updateForm)" #updateForm="ngForm" novalidate>
+    <div>
+      <label>Warehouse Name <span class="required-text"> (required)</span></label>
+      <input type="text" class="form-control" id="name" [(ngModel)]="warehouse.name" name="name" required>
+      <div *ngIf="updateForm.controls['name'].errors?.['required'] && (updateForm.submitted || updateForm.controls['name'].touched)" class="text-danger">
+        Warehouse name is required.
+      </div>
+    </div>
+    <div>
+      <label>Warehouse Description</label>
+      <input type="text" class="form-control" id="description" [(ngModel)]="warehouse.description" name="description">
+    </div>
+
+    <!-- Update items section -->
+    <div *ngIf="warehouse.items.length > 0">
+      <h4 class="mt-3">Update Items</h4>
+      <div *ngFor="let item of warehouse.items; let i = index" class="item-row">
+        <div class="form-group row">
+          <div class="col">
+            <label for="itemName{{i}}">Item Name <span class="required-text">(required)</span></label>
+            <input type="text" class="form-control" id="itemName{{i}}" [(ngModel)]="item.name" name="itemName{{i}}" required>
+            <div *ngIf="updateForm.controls['itemName' + i].errors?.['required'] && (updateForm.submitted || updateForm.controls['itemName' + i].touched)" class="text-danger">
+              Item name is required.
+            </div>
+          </div>
+          <div class="col">
+            <label for="itemDescription{{i}}">Item Description</label>
+            <input type="text" class="form-control" id="itemDescription{{i}}" [(ngModel)]="item.description" name="itemDescription{{i}}">
+          </div>
+          <div class="col">
+            <label for="itemQuantity{{i}}">Item Quantity</label>
+            <input type="number" class="form-control" id="itemQuantity{{i}}" [(ngModel)]="item.quantity" name="itemQuantity{{i}}">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error messages -->
+    <div class="mt-3 text-danger" *ngIf="updateForm.submitted && updateForm.invalid">
+      Please fix the errors above before submitting.
+    </div>
+
+    <div class="mt-3 mb-3" fxLayout="row" fxLayoutAlign="center center">
+      <button class="btn btn-success" type="submit">Submit</button>
+      <button class="btn btn-success" type="button" style="margin-left: 10px" (click)="goToWarehouseList()">Back</button>
+    </div>
+
+    @if (updateForm.submitted && isUpdateUpFailed) {
+      <div class="alert alert-warning">
+        Add failed!<br />{{ errorMessage }}
+      </div>
+    }
+  </form>
+</div>

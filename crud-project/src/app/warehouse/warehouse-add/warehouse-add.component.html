@@ -1,0 +1,66 @@
+<div class="col-md-6 offset-md-3">
+  <h3 class="mt-3 mb-3">Create Warehouse</h3>
+
+  <form (ngSubmit)="onSubmit(warehouseForm)" #warehouseForm="ngForm" novalidate>
+    <div>
+      <label>Warehouse Name <span class="required-text">(required)</span></label>
+      <input type="text" class="form-control" id="warehouseName"
+             [(ngModel)]="warehouse.name" name="warehouseName"
+             required minlength="3" #warehouseName="ngModel">
+      <div *ngIf="(warehouseName.invalid && (warehouseName.dirty || warehouseName.touched)) || (warehouseForm.submitted && warehouseName.invalid)" class="text-danger">
+        <div *ngIf="warehouseName.errors?.['required']">Warehouse name is required.</div>
+        <div *ngIf="warehouseName.errors?.['minlength']">Warehouse name must be at least 3 characters long.</div>
+      </div>
+    </div>
+    <div>
+      <label>Warehouse Description</label>
+      <input type="text" class="form-control" id="warehouseDescription"
+             [(ngModel)]="warehouse.description" name="warehouseDescription">
+    </div>
+
+    <!-- Items section -->
+    <div class="mt-3 mb-3">
+      <h4>Add Items</h4>
+      <div *ngFor="let item of warehouse.items; let i = index" class="item-row">
+        <div class="form-group row">
+          <div class="col">
+            <label for="itemName{{i}}">Item Name <span class="required-text">(required)</span></label>
+            <input type="text" class="form-control" id="itemName{{i}}"
+                   [(ngModel)]="item.name" name="itemName{{i}}"
+                   required #itemName="ngModel">
+            <div *ngIf="(itemName.invalid && (itemName.dirty || itemName.touched)) || (warehouseForm.submitted && itemName.invalid)" class="text-danger">
+              <div *ngIf="itemName.errors?.['required']">Item name is required.</div>
+            </div>
+          </div>
+          <div class="col">
+            <label for="itemDescription{{i}}">Item Description</label>
+            <input type="text" class="form-control" id="itemDescription{{i}}"
+                   [(ngModel)]="item.description" name="itemDescription{{i}}">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="itemQuantity{{i}}">Item Quantity</label>
+            <input type="number" class="form-control" id="itemQuantity{{i}}"
+                   [(ngModel)]="item.quantity" name="itemQuantity{{i}}">
+          </div>
+          <div class="col" fxLayout="row" fxLayoutAlign="end end">
+            <button class="btn btn-danger" (click)="removeItem($event , i)">Remove Item</button>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary" (click)="addItem($event)">Add Item</button>
+    </div>
+
+    <div class="mt-3 mb-3" fxLayout="row" fxLayoutAlign="center center">
+      <button class="btn btn-success" type="submit">Submit</button>
+      <button class="btn btn-success" type="button" style="margin-left: 10px" (click)="goToWarehouseList()">Back</button>
+    </div>
+
+    @if (warehouseForm.submitted && isAddUpFailed) {
+      <div class="alert alert-warning">
+        Add failed!<br />{{ errorMessage }}
+      </div>
+    }
+  </form>
+</div>

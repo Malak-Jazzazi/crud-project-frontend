@@ -1,0 +1,6 @@
+.expanded-row {
+  width: 100%;
+}
+.expanded-row > div {
+  width: 100%;
+}

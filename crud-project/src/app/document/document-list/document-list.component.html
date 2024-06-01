@@ -1,0 +1,59 @@
+<div class="container-fluid mt-3 mb-3" fxLayout="row" fxLayoutAlign="space-between center">
+  <h2>Supply Document List</h2>
+  <div *ngIf="showEmployeeView">
+    <button (click)="addDocument()" class="btn btn-info">Add Supply document</button>
+    <button (click)="deleteDocuments()" class="btn btn-danger" style="margin-left: 10px">Delete</button>
+
+  </div>
+
+</div>
+<div class="container mt-4">
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Subject</th>
+      <th>Created by</th>
+      <th>Created On</th>
+      <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let supplyDocument of supplyDocuments">
+      <tr>
+        <td>{{ supplyDocument.supplyDocumentName }}</td>
+        <td>{{ supplyDocument.supplyDocumentSubject }}</td>
+        <td>{{ supplyDocument.createdBy }}</td>
+        <td>{{ supplyDocument.createdOn | date:'dd/MM/yyyy'}}</td>
+        <td>{{ supplyDocument.status }}</td>
+        <td *ngIf="showEmployeeView; else otherView">
+          <button (click)="updateDocument(supplyDocument.id)" class="btn btn-info">Update</button>
+          <button (click)="deleteDocument(supplyDocument.id)" class="btn btn-danger" style="margin-left: 10px">Delete
+          </button>
+          <button (click)="ViewDocumentDetails(supplyDocument.id)" class="btn btn-info" style="margin-left: 10px">View
+          </button>
+          <mat-checkbox (change)="onCheckboxChange($event, supplyDocument.id)" style="margin-left: 10px"
+                        *ngIf="this.deleteMode"></mat-checkbox>
+
+        </td>
+        <ng-template #otherView>
+        <td>
+          <button (click)="approveDocument(supplyDocument)"
+                  class="btn btn-info"
+                  [disabled]="supplyDocument.status !== 'PENDING'">
+            Approve
+          </button>
+          <button (click)="declineDocument(supplyDocument)"
+                  class="btn btn-danger"
+                  style="margin-left: 10px"
+                  [disabled]="supplyDocument.status !== 'PENDING'">
+            Decline
+          </button>
+        </td>
+        </ng-template>
+      </tr>
+    </ng-container>
+    </tbody>
+  </table>
+</div>

@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.required-text {
+  color: #777; /* Change to desired gray color */
+  font-size: 12px; /* Adjust font size as needed */
+}
